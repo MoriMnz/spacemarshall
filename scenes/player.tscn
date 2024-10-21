@@ -427,5 +427,5 @@ shape = SubResource("CapsuleShape2D_caado")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_03afr")
-animation = &"front_idle"
-frame_progress = 0.0420351
+animation = &"side_attack"
+frame_progress = 0.800353
