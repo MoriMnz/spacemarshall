@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b2eqj2x146apm"]
+[gd_scene load_steps=17 format=3 uid="uid://b2eqj2x146apm"]
 
 [ext_resource type="Texture2D" uid="uid://c1ap1rm0x5bvs" path="res://art/objects/objects.png" id="1_sdb3i"]
 [ext_resource type="Texture2D" uid="uid://crx7ssn1qudwo" path="res://art/tilesets/plains.png" id="2_r6d3a"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b071qcl03v0py" path="res://scenes/player.tscn" id="4_k7s2o"]
 [ext_resource type="Texture2D" uid="uid://dmb7xtec5nhuk" path="res://art/tilesets/bluegrass.png" id="5_l2cii"]
 [ext_resource type="Texture2D" uid="uid://cim7iroqoj02p" path="res://art/tilesets/planegrass.png" id="6_wy6wa"]
+[ext_resource type="PackedScene" uid="uid://cn85w8l0uur0s" path="res://scenes/orc1.tscn" id="8_0bjhn"]
 
 [sub_resource type="GDScript" id="GDScript_say0q"]
 script/source = "extends Node2D
@@ -308,3 +309,7 @@ layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(589863, 0, 5, 1376264, 393216, 7, 196624, 393216, 7, 196612, 393216, 7, 1048577, 393216, 7, 458773, 393216, 7, 196639, 393216, 7, 655393, 393216, 7, 262185, 393216, 7, 1376281, 655360, 7, 1572875, 655360, 7, 524304, 655360, 7, 1376258, 655360, 7, 1179660, 0, 1, 1441826, 0, 1, 524316, 0, 1, 65562, 0, 1, 65542, 0, 1, 196643, 0, 1, 524313, 0, 0, 327705, 327680, 0, 1376275, 0, 0, 65537, 524288, 6, 851970, 524288, 6, 1638442, 524288, 6, 1310749, 524288, 6, 524331, 524288, 6, 1114130, 524288, 6, 196617, 3, 0, 1572886, 1441795, 0, 131093, 1703939, 0, 1507332, 1966083, 0, 1572895, 524291, 9, 1310760, 2490371, 0, 43, 3014659, 0, 1507344, 2949123, 5, 393234, 1310723, 9, 1048582, 2228227, 0, 262179, 2424835, 5, 1638448, 1310723, 9, 1310765, 2752515, 5, 262192, 983043, 5, 65589, 524291, 9, 327732, 1507331, 9, 35, 1638403, 9, 1507381, 262147, 0, 720945, 2949123, 5, 1114162, 3, 5, 655414, 1703939, 5, 1703973, 1900547, 9, 1310732, 1900547, 9, 12, 1900547, 9, 196634, 1900547, 9, 48, 1900547, 9, 1769474, 1900547, 9, 852013, 1900547, 9, 1703963, 720899, 9, -65520, 720899, 9, 1441840, 0, 1, 524336, 0, 1, 1769481, 0, 0, 851994, 851971, 9, 655371, 1638403, 9, 851998, 2162691, 9, 655379, 2162691, 9, 852005, 720899, 5, 458757, 1179651, 9)
 
 [node name="player" parent="." instance=ExtResource("4_k7s2o")]
+position = Vector2(37, 124)
+
+[node name="orc1" parent="." instance=ExtResource("8_0bjhn")]
+position = Vector2(519, 263)
