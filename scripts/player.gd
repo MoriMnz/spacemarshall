@@ -9,6 +9,22 @@ func _ready():
 
 func _physics_process(delta):
 	player_movement(delta)
+
+	# Get the screen size
+	var screen_width = get_viewport_rect().size.x
+	var screen_height = get_viewport_rect().size.y
+
+	# Check and correct the player's position if outside the boundaries
+	if position.x < 0:
+		position.x = 0
+	elif position.x > screen_width:
+		position.x = screen_width
+
+	if position.y < 0:
+		position.y = 0
+	elif position.y > screen_height:
+		position.y = screen_height
+
 	
 func player_movement(delta):
 	
