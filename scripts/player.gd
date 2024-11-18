@@ -6,6 +6,7 @@ var current_dir = "none"
 func _ready():
 	$AnimatedSprite2D.play("front_idle")
 
+
 func _physics_process(delta):
 	player_movement(delta)
 	
@@ -35,6 +36,23 @@ func player_movement(delta):
 		play_anim(0)
 		velocity.x = 0
 		velocity.y = 0
+		
+		
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += speed
+	elif Input.is_action_pressed("ui_left"):
+		velocity.x -= speed
+
+	if Input.is_action_pressed("ui_down"):
+		velocity.y += speed
+	elif Input.is_action_pressed("ui_up"):
+		velocity.y -= speed
+
+# Define the playable area (adjust the values as needed)
+
+
+
+
 	
 	move_and_slide()
 	
@@ -68,3 +86,18 @@ func play_anim(movement):
 		elif movement == 0:
 			anim.play("back_idle")
 			
+	# Set animations based on direction
+	if current_dir == "right":
+		anim.flip_h = false
+		anim.play("side_walk" if movement == 1 else "side_idle")
+	elif current_dir == "left":
+		anim.flip_h = true
+		anim.play("side_walk" if movement == 1 else "side_idle")
+	elif current_dir == "down":
+		anim.flip_h = false
+		anim.play("front_walk" if movement == 1 else "front_idle")
+	elif current_dir == "up":
+		anim.flip_h = false
+		anim.play("back_walk" if movement == 1 else "back_idle")
+		
+		
