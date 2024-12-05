@@ -1,7 +1,14 @@
 extends CharacterBody2D
 
-const speed = 100
-var current_dir = "none"
+const speed = 150
+var current_dir = "down"
+
+var enemy_inattack_range = false
+var enemy_attack_cooldown = true
+var health = 100
+var player_alive = true
+
+var attack_ip = false
 
 func _ready():
 	$AnimatedSprite2D.play("front_idle")
@@ -9,41 +16,53 @@ func _ready():
 
 func _physics_process(delta):
 	player_movement(delta)
+	enemy_attack()
+	attack()
+	current_camera()
+	update_health()
+
+	if health <= 0:
+		player_alive = false #dead screen
+		health = 0
+		print("player died")
+		#$AnimatedSprite2D.play("death")
+		self.queue_free()
+		
 
 	# Get the screen size
 	var screen_width = get_viewport_rect().size.x
 	var screen_height = get_viewport_rect().size.y
 
 	# Check and correct the player's position if outside the boundaries
-	if position.x < 0:
-		position.x = 0
-	elif position.x > screen_width:
-		position.x = screen_width
-
-	if position.y < 0:
-		position.y = 0
-	elif position.y > screen_height:
-		position.y = screen_height
+	#if position.x < 0:
+		#position.x = 0
+	#elif position.x > screen_width:
+		#position.x = screen_width
+#
+	#if position.y < 0:
+		#position.y = 0
+	#elif position.y > screen_height:
+		#position.y = screen_height
 
 	
 func player_movement(delta):
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("right"):
 		current_dir = "right"
 		play_anim(1)
 		velocity.x = speed
 		velocity.y = 0
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("left"):
 		current_dir = "left"
 		play_anim(1)
 		velocity.x = -speed
 		velocity.y = 0
-	elif Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("down"):
 		current_dir = "down"
 		play_anim(1)
 		velocity.y = speed
 		velocity.x = 0
-	elif Input.is_action_pressed("ui_up"):
+	elif Input.is_action_pressed("up"):
 		current_dir = "up"
 		play_anim(1)
 		velocity.y = -speed
@@ -53,24 +72,23 @@ func player_movement(delta):
 		velocity.x = 0
 		velocity.y = 0
 		
-		
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += speed
-	elif Input.is_action_pressed("ui_left"):
-		velocity.x -= speed
+	move_and_slide()
+	
+	
+	#if Input.is_action_pressed("ui_right"):
+		#velocity.x += speed
+	#elif Input.is_action_pressed("ui_left"):
+		#velocity.x -= speed
+#
+	#if Input.is_action_pressed("ui_down"):
+		#velocity.y += speed
+	#elif Input.is_action_pressed("ui_up"):
+		#velocity.y -= speed
 
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += speed
-	elif Input.is_action_pressed("ui_up"):
-		velocity.y -= speed
 
 # Define the playable area (adjust the values as needed)
-
-
-
-
 	
-	move_and_slide()
+	#move_and_slide()
 	
 func play_anim(movement):
 	var dir = current_dir
@@ -81,39 +99,118 @@ func play_anim(movement):
 		if movement == 1:
 			anim.play("side_walk")
 		elif movement == 0:
-			anim.play("side_idle")
+			if attack_ip == false:
+				anim.play("side_idle")
 	if dir == "left":
 		anim.flip_h = true
 		if movement == 1:
 			anim.play("side_walk")
 		elif movement == 0:
-			anim.play("side_idle")
+			if attack_ip == false:
+				anim.play("side_idle")
 	
 	if dir == "down":
 		anim.flip_h = true
 		if movement == 1:
 			anim.play("front_walk")
 		elif movement == 0:
-			anim.play("front_idle")
+			if attack_ip == false:
+				anim.play("front_idle")
 	if dir == "up":
 		anim.flip_h = true
 		if movement == 1:
 			anim.play("back_walk")
 		elif movement == 0:
-			anim.play("back_idle")
+			if attack_ip == false:
+				anim.play("back_idle")
 			
 	# Set animations based on direction
-	if current_dir == "right":
-		anim.flip_h = false
-		anim.play("side_walk" if movement == 1 else "side_idle")
-	elif current_dir == "left":
-		anim.flip_h = true
-		anim.play("side_walk" if movement == 1 else "side_idle")
-	elif current_dir == "down":
-		anim.flip_h = false
-		anim.play("front_walk" if movement == 1 else "front_idle")
-	elif current_dir == "up":
-		anim.flip_h = false
-		anim.play("back_walk" if movement == 1 else "back_idle")
+	#if current_dir == "right":
+		#anim.flip_h = false
+		#anim.play("side_walk" if movement == 1 else "side_idle")
+	#elif current_dir == "left":
+		#anim.flip_h = true
+		#anim.play("side_walk" if movement == 1 else "side_idle")
+	#elif current_dir == "down":
+		#anim.flip_h = false
+		#anim.play("front_walk" if movement == 1 else "front_idle")
+	#elif current_dir == "up":
+		#anim.flip_h = false
+		#anim.play("back_walk" if movement == 1 else "back_idle")
 		
 		
+
+func player():
+	pass
+
+func _on_player_hitbox_body_entered(body: Node2D) -> void:
+	if body.has_method("enemy"):
+		enemy_inattack_range = true
+
+func _on_player_hitbox_body_exited(body: Node2D) -> void:
+	if body.has_method("enemy"):
+		enemy_inattack_range = false
+
+func enemy_attack():
+	if enemy_inattack_range and enemy_attack_cooldown == true:
+		health = health - 20
+		enemy_attack_cooldown = false
+		$attack_cooldown.start()
+		print(health)
+
+
+func _on_attack_cooldown_timeout() -> void:
+	enemy_attack_cooldown = true
+
+func attack():
+	var dir = current_dir
+	
+	if Input.is_action_just_pressed("attack"):
+		Global.player_current_attack = true
+		attack_ip = true
+		if dir == "right":
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play("side_attack")
+			$deal_attack_timer.start()
+		if dir == "left":
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("side_attack")
+			$deal_attack_timer.start()
+		if dir == "down":
+			$AnimatedSprite2D.play("front_attack")
+			$deal_attack_timer.start()
+		if dir == "up":
+			$AnimatedSprite2D.play("back_attack")
+			$deal_attack_timer.start()
+
+
+func _on_deal_attack_timer_timeout() -> void:
+	$deal_attack_timer.stop()
+	Global.player_current_attack = false
+	attack_ip = false
+
+func current_camera():
+	if Global.current_scene == "world":
+		$world_camera.enabled = true
+		$desert_camera.enabled = false
+	elif Global.current_scene == "desert":
+		$world_camera.enabled = false
+		$desert_camera.enabled = true
+
+func update_health():
+	var healthbar = $healthbar
+	
+	healthbar.value = health
+	
+	if health >= 100:
+		healthbar.visible = false
+	else:
+		healthbar.visible = true
+
+func _on_regen_timer_timeout() -> void:
+	if health < 100:
+		health = health + 20
+		if health > 100:
+			health = 100
+	if health <= 0:
+		health = 0

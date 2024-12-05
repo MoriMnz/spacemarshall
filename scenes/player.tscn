@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b071qcl03v0py"]
+[gd_scene load_steps=73 format=3 uid="uid://b071qcl03v0py"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hkruk"]
 [ext_resource type="Texture2D" uid="uid://eieq2df5nfae" path="res://art/characters/player/Sword_attack/Sword_attack_full.png" id="2_swojs"]
@@ -356,28 +356,28 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_es1yi")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_ty78x")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_40045")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_t67sw")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_w2twb")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_4i8qa")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_rpy03")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_ae217")
 }],
 "loop": true,
@@ -428,28 +428,28 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_vy6yt")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_hdqik")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_1y0ck")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_kpb68")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_fyeb0")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_phtdm")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_dxytv")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_kwmor")
 }],
 "loop": true,
@@ -504,6 +504,9 @@ animations = [{
 radius = 4.0
 height = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_b5nmt"]
+radius = 16.0
+
 [sub_resource type="GDScript" id="GDScript_dmbbt"]
 
 [node name="player" type="CharacterBody2D"]
@@ -514,17 +517,28 @@ script = ExtResource("1_hkruk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_03afr")
-animation = &"front_idle"
+animation = &"death"
 offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_caado")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="player_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(-1, -7)
+shape = SubResource("CircleShape2D_b5nmt")
+
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="deal_attack_timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="world_camera" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
 limit_left = 0
-limit_top = -32
+limit_top = 0
 limit_right = 920
 limit_bottom = 475
 limit_smoothed = true
@@ -532,3 +546,36 @@ rotation_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 script = SubResource("GDScript_dmbbt")
+
+[node name="desert_camera" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(4, 4)
+limit_left = 0
+limit_top = 0
+limit_right = 832
+limit_bottom = 415
+limit_smoothed = true
+rotation_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = SubResource("GDScript_dmbbt")
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(4.33177e-06, 0.788042, 0.289928, 1)
+offset_left = -6.0
+offset_top = 4.0
+offset_right = 126.0
+offset_bottom = 41.0
+scale = Vector2(0.1, 0.1)
+value = 100.0
+show_percentage = false
+
+[node name="regen_timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
+[connection signal="timeout" from="regen_timer" to="." method="_on_regen_timer_timeout"]
