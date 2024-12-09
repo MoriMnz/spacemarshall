@@ -1,10 +1,11 @@
-[gd_scene load_steps=73 format=3 uid="uid://b071qcl03v0py"]
+[gd_scene load_steps=79 format=3 uid="uid://b071qcl03v0py"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_hkruk"]
 [ext_resource type="Texture2D" uid="uid://eieq2df5nfae" path="res://art/characters/player/Sword_attack/Sword_attack_full.png" id="2_swojs"]
 [ext_resource type="Texture2D" uid="uid://dkcoe6th3rhb0" path="res://art/characters/player/Unarmed_Idle/Unarmed_Idle_full.png" id="3_uro1r"]
 [ext_resource type="Texture2D" uid="uid://x50twhnnqjqv" path="res://art/characters/player/Unarmed_Walk/Unarmed_Walk_full.png" id="4_hdsys"]
 [ext_resource type="Texture2D" uid="uid://xnql4oiw8w1w" path="res://art/characters/player/Unarmed_Death/Unarmed_Death_full.png" id="5_squc7"]
+[ext_resource type="Texture2D" uid="uid://bx1k27mjocka8" path="res://art/characters/player/Unarmed_Hurt/Unarmed_Hurt_full.png" id="6_x8dy0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tpwyq"]
 atlas = ExtResource("2_swojs")
@@ -137,6 +138,26 @@ region = Rect2(384, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ae217"]
 atlas = ExtResource("2_swojs")
 region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_28jg4"]
+atlas = ExtResource("6_x8dy0")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfv4j"]
+atlas = ExtResource("6_x8dy0")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blvu3"]
+atlas = ExtResource("6_x8dy0")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p87t"]
+atlas = ExtResource("6_x8dy0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtgiu"]
+atlas = ExtResource("6_x8dy0")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h7qs3"]
 atlas = ExtResource("3_uro1r")
@@ -353,7 +374,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 0.5,
@@ -382,6 +403,26 @@ animations = [{
 }],
 "loop": true,
 "name": &"front_attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28jg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfv4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blvu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p87t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtgiu")
+}],
+"loop": true,
+"name": &"front_hurt",
 "speed": 5.0
 }, {
 "frames": [{

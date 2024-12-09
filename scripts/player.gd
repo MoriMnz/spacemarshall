@@ -25,8 +25,9 @@ func _physics_process(delta):
 		player_alive = false #dead screen
 		health = 0
 		print("player died")
-		#$AnimatedSprite2D.play("death")
-		self.queue_free()
+		#self.queue_free()
+		await get_tree().create_timer(0.8).timeout
+		get_tree().change_scene_to_file("res://scenes/homescreen.tscn")
 		
 
 	# Get the screen size
@@ -94,35 +95,38 @@ func play_anim(movement):
 	var dir = current_dir
 	var anim = $AnimatedSprite2D
 	
-	if dir == "right":
-		anim.flip_h = false
-		if movement == 1:
-			anim.play("side_walk")
-		elif movement == 0:
-			if attack_ip == false:
-				anim.play("side_idle")
-	if dir == "left":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play("side_walk")
-		elif movement == 0:
-			if attack_ip == false:
-				anim.play("side_idle")
-	
-	if dir == "down":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play("front_walk")
-		elif movement == 0:
-			if attack_ip == false:
-				anim.play("front_idle")
-	if dir == "up":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play("back_walk")
-		elif movement == 0:
-			if attack_ip == false:
-				anim.play("back_idle")
+	if player_alive == false:
+		$AnimatedSprite2D.play("death")
+	elif player_alive == true:
+		if dir == "right":
+			anim.flip_h = false
+			if movement == 1:
+				anim.play("side_walk")
+			elif movement == 0:
+				if attack_ip == false:
+					anim.play("side_idle")
+		if dir == "left":
+			anim.flip_h = true
+			if movement == 1:
+				anim.play("side_walk")
+			elif movement == 0:
+				if attack_ip == false:
+					anim.play("side_idle")
+		
+		if dir == "down":
+			anim.flip_h = true
+			if movement == 1:
+				anim.play("front_walk")
+			elif movement == 0:
+				if attack_ip == false:
+					anim.play("front_idle")
+		if dir == "up":
+			anim.flip_h = true
+			if movement == 1:
+				anim.play("back_walk")
+			elif movement == 0:
+				if attack_ip == false:
+					anim.play("back_idle")
 			
 	# Set animations based on direction
 	#if current_dir == "right":
@@ -153,7 +157,12 @@ func _on_player_hitbox_body_exited(body: Node2D) -> void:
 
 func enemy_attack():
 	if enemy_inattack_range and enemy_attack_cooldown == true:
-		health = health - 20
+		if Global.orc1_dam == true:
+			health = health - 15
+		elif Global.golem_dam == true:
+			health = health - 20
+		
+		$AnimatedSprite2D.play("front_hurt")
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 		print(health)

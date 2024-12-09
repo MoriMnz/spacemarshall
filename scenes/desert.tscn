@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d4lbryd077uvx"]
+[gd_scene load_steps=22 format=3 uid="uid://d4lbryd077uvx"]
 
 [ext_resource type="Script" path="res://scripts/desert.gd" id="1_5ap4g"]
 [ext_resource type="Texture2D" uid="uid://bgvb4qcuxw6lb" path="res://art/desert/Ground_grass.png" id="1_vanjv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b25syjikjqvbp" path="res://art/desert/water_detilazation.png" id="7_ntg63"]
 [ext_resource type="Texture2D" uid="uid://rrs3q70xl5mh" path="res://art/desert/details.png" id="8_1efr5"]
 [ext_resource type="PackedScene" uid="uid://b071qcl03v0py" path="res://scenes/player.tscn" id="9_em103"]
+[ext_resource type="PackedScene" uid="uid://npxjdses635h" path="res://scenes/desert_golem.tscn" id="11_ks3rl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwjsb"]
 texture = ExtResource("1_vanjv")
@@ -2317,7 +2318,7 @@ layer_0/tile_data = PackedInt32Array(0, 1376256, 1, 1, 1376256, 1, 65537, 137625
 layer_1/name = "cliff"
 layer_2/name = "ysort"
 layer_2/y_sort_enabled = true
-layer_2/tile_data = PackedInt32Array(327687, 2, 0, 1376263, 524290, 0, 262176, 524290, 0, 655389, 1114114, 0, 196621, 1114114, 0, 786442, 1376258, 0, 524328, 1638402, 0, 1310753, 1638402, 5, 1179662, 524290, 5, 917540, 851970, 5, 196644, 2359298, 0, 589840, 2359298, 0, 1048583, 851970, 0, 1507367, 1114114, 5, 262147, 2621442, 0, 589826, 2359298, 0, 1048578, 2, 0)
+layer_2/tile_data = PackedInt32Array(327687, 2, 0, 262176, 524290, 0, 655389, 1114114, 0, 196621, 1114114, 0, 786442, 1376258, 0, 524328, 1638402, 0, 1310753, 1638402, 5, 1179662, 524290, 5, 917540, 851970, 5, 196644, 2359298, 0, 589840, 2359298, 0, 1048583, 851970, 0, 1507367, 1114114, 5, 262147, 2621442, 0, 589826, 2359298, 0, 1048578, 2, 0, 1376261, 524290, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -2332,5 +2333,8 @@ position = Vector2(368, 398)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="desert_exitpoint"]
 position = Vector2(370, 434.5)
 shape = SubResource("RectangleShape2D_43bho")
+
+[node name="desert_golem" parent="." instance=ExtResource("11_ks3rl")]
+position = Vector2(367, 40)
 
 [connection signal="body_entered" from="desert_exitpoint" to="." method="_on_desert_exitpoint_body_entered"]

@@ -13,6 +13,9 @@ var player_start_posy = 124
 
 var game_first_loadin = true
 
+var golem_dam = false
+var orc1_dam = false
+
 func finish_changescenes():
 	if transition_scene == true:
 		transition_scene = false

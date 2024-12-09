@@ -1,9 +1,10 @@
-[gd_scene load_steps=53 format=3 uid="uid://cn85w8l0uur0s"]
+[gd_scene load_steps=60 format=3 uid="uid://cn85w8l0uur0s"]
 
 [ext_resource type="Texture2D" uid="uid://d1ls14c54qigi" path="res://art/characters/orc1/Orc1_idle/orc1_idle_full.png" id="1_hh3mt"]
 [ext_resource type="Script" path="res://scripts/orc1.gd" id="1_u688n"]
 [ext_resource type="Texture2D" uid="uid://ck352b4van27o" path="res://art/characters/orc1/Orc1_attack/orc1_attack_full.png" id="2_6ojy1"]
 [ext_resource type="Texture2D" uid="uid://cpo8t5jadvak3" path="res://art/characters/orc1/Orc1_run/orc1_run_full.png" id="3_b1rxc"]
+[ext_resource type="Texture2D" uid="uid://tyeqs0qe62ai" path="res://art/characters/orc1/Orc1_hurt/orc1_hurt_full.png" id="3_p3nr5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2c5sj"]
 atlas = ExtResource("2_6ojy1")
@@ -68,6 +69,30 @@ region = Rect2(384, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_menyw"]
 atlas = ExtResource("2_6ojy1")
 region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuac6"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2v2f"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1yhi"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1i3ju"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7moia"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_euvc4"]
+atlas = ExtResource("3_p3nr5")
+region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bp8w2"]
 atlas = ExtResource("1_hh3mt")
@@ -243,6 +268,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_wuac6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2v2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1yhi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1i3ju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7moia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_euvc4")
+}],
+"loop": true,
+"name": &"front_hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bp8w2")
 }, {
 "duration": 1.0,
@@ -366,8 +414,8 @@ script = ExtResource("1_u688n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6yy82")
-animation = &"side_attack"
-frame_progress = 0.734208
+animation = &"front_attack"
+frame_progress = 0.454678
 
 [node name="detection_area" type="Area2D" parent="."]
 visible = false
