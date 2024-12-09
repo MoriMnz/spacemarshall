@@ -19,6 +19,12 @@ config/icon="res://art/icon.svg"
 
 Global="*res://scripts/global.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale=1.05
+
 [input]
 
 attack={

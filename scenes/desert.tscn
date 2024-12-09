@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d4lbryd077uvx"]
+[gd_scene load_steps=23 format=3 uid="uid://d4lbryd077uvx"]
 
 [ext_resource type="Script" path="res://scripts/desert.gd" id="1_5ap4g"]
 [ext_resource type="Texture2D" uid="uid://bgvb4qcuxw6lb" path="res://art/desert/Ground_grass.png" id="1_vanjv"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://rrs3q70xl5mh" path="res://art/desert/details.png" id="8_1efr5"]
 [ext_resource type="PackedScene" uid="uid://b071qcl03v0py" path="res://scenes/player.tscn" id="9_em103"]
 [ext_resource type="PackedScene" uid="uid://npxjdses635h" path="res://scenes/desert_golem.tscn" id="11_ks3rl"]
+[ext_resource type="PackedScene" uid="uid://bk0fwkdpjx5g3" path="res://scenes/desert_orc.tscn" id="12_qpcwf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwjsb"]
 texture = ExtResource("1_vanjv")
@@ -2336,5 +2337,17 @@ shape = SubResource("RectangleShape2D_43bho")
 
 [node name="desert_golem" parent="." instance=ExtResource("11_ks3rl")]
 position = Vector2(367, 40)
+
+[node name="desert_orc" parent="." instance=ExtResource("12_qpcwf")]
+position = Vector2(734, 168)
+
+[node name="desert_orc2" parent="." instance=ExtResource("12_qpcwf")]
+position = Vector2(186, 139)
+
+[node name="desert_orc3" parent="." instance=ExtResource("12_qpcwf")]
+position = Vector2(293, 325)
+
+[node name="desert_orc4" parent="." instance=ExtResource("12_qpcwf")]
+position = Vector2(501, 280)
 
 [connection signal="body_entered" from="desert_exitpoint" to="." method="_on_desert_exitpoint_body_entered"]

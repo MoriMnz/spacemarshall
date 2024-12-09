@@ -335,4 +335,10 @@ position = Vector2(805, 283)
 [node name="golem" parent="." instance=ExtResource("11_vcax0")]
 position = Vector2(510, 62)
 
+[node name="orc3" parent="." instance=ExtResource("8_0bjhn")]
+position = Vector2(844, 436)
+
+[node name="orc4" parent="." instance=ExtResource("8_0bjhn")]
+position = Vector2(207, 71)
+
 [connection signal="body_entered" from="desert_transition_point" to="." method="_on_desert_transition_point_body_entered"]
